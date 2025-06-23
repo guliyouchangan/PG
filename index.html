@@ -14,74 +14,187 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
             color: #ffffff;
             line-height: 1.6;
             min-height: 100vh;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* 添加动态背景效果 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 107, 107, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255, 193, 7, 0.08) 0%, transparent 50%);
+            z-index: -1;
+            animation: backgroundFloat 20s ease-in-out infinite;
+        }
+
+        @keyframes backgroundFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(1deg); }
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
+            position: relative;
+            z-index: 1;
         }
 
-        /* 头部样式 */
+        /* 头部样式 - 大幅美化 */
         .header {
             text-align: center;
-            margin-bottom: 30px;
-            padding: 30px 20px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 107, 107, 0.2);
+            margin-bottom: 40px;
+            padding: 40px 30px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.08) 100%);
+            border-radius: 25px;
+            border: 1px solid rgba(255, 107, 107, 0.4);
+            backdrop-filter: blur(15px);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b6b, #ffd93d, #6bcf7f, #ff6b6b);
+            border-radius: 2px;
+            animation: headerShimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes headerShimmer {
+            0%, 100% { opacity: 0.7; transform: translateX(-50%) scaleX(1); }
+            50% { opacity: 1; transform: translateX(-50%) scaleX(1.3); }
         }
 
         .header h1 {
-            font-size: 28px;
-            font-weight: bold;
-            color: #ff6b6b;
+            font-size: 36px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ffd93d 50%, #ff6b6b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin-bottom: 20px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+            animation: titlePulse 4s ease-in-out infinite;
+            position: relative;
+            z-index: 2;
         }
 
-        /* 活动说明样式 */
+        @keyframes titlePulse {
+            0%, 100% { transform: scale(1); filter: brightness(1); }
+            50% { transform: scale(1.02); filter: brightness(1.1); }
+        }
+
+        /* 活动说明样式 - 大幅美化 */
         .activity-info {
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 30px;
-            border: 1px solid rgba(255, 107, 107, 0.3);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 100%);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 35px;
+            border: 1px solid rgba(255, 107, 107, 0.4);
+            backdrop-filter: blur(12px);
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .activity-info::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 107, 107, 0.08), transparent);
+            animation: infoShine 6s linear infinite;
+        }
+
+        @keyframes infoShine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
         }
 
         .activity-info p {
-            font-size: 16px;
-            color: #cccccc;
-            margin-bottom: 10px;
-            line-height: 1.6;
+            font-size: 17px;
+            color: #e8e8e8;
+            margin-bottom: 15px;
+            line-height: 1.7;
+            position: relative;
+            z-index: 2;
         }
 
         .activity-info strong {
-            color: #ff6b6b;
+            color: #ffd93d;
+            font-weight: 600;
+            text-shadow: 0 1px 3px rgba(255, 217, 61, 0.4);
         }
 
-        /* 活动表格样式 */
+        /* 活动表格样式 - 大幅美化 */
         .activity-table {
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 30px;
-            border: 1px solid rgba(255, 107, 107, 0.3);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.06) 100%);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 35px;
+            border: 1px solid rgba(255, 107, 107, 0.4);
+            backdrop-filter: blur(15px);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .activity-table::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #ff6b6b, #ffd93d, #6bcf7f, #ff6b6b);
+            animation: tableGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes tableGlow {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
         }
 
         .activity-table h2 {
-            color: #ff6b6b;
-            font-size: 22px;
-            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ffd93d 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 26px;
+            margin-bottom: 25px;
             text-align: center;
-            font-weight: bold;
+            font-weight: 700;
+            text-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+            position: relative;
+            z-index: 2;
         }
 
         .table-responsive {
@@ -93,41 +206,126 @@
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+            border-radius: 15px;
             overflow: hidden;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
         }
 
         th, td {
-            padding: 15px 12px;
+            padding: 18px 15px;
             text-align: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
         }
 
         th {
-            background: rgba(255, 107, 107, 0.2);
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.3) 0%, rgba(255, 107, 107, 0.2) 100%);
             color: #ffffff;
-            font-weight: bold;
-            font-size: 14px;
+            font-weight: 600;
+            font-size: 15px;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            border-bottom: 2px solid rgba(255, 107, 107, 0.4);
         }
 
         td {
-            color: #cccccc;
-            font-size: 14px;
+            color: #e0e0e0;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.3s ease;
         }
 
         tr:hover {
-            background: rgba(255, 255, 255, 0.05);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.06) 100%);
+            transform: translateY(-1px);
         }
 
-        /* 规则说明样式 */
-        .rules-section {
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 30px;
-            border: 1px solid rgba(255, 107, 107, 0.3);
+        tr:hover td {
+            color: #ffffff;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
         }
+
+        /* 特殊单元格样式 */
+        td[rowspan] {
+            background: linear-gradient(135deg, rgba(255, 193, 7, 0.2) 0%, rgba(255, 193, 7, 0.1) 100%);
+            color: #ffd93d !important;
+            font-weight: 700;
+            text-shadow: 0 1px 3px rgba(255, 193, 7, 0.4);
+        }
+
+        /* 规则说明样式 - 美化 */
+        .rules-section {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.06) 100%);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 35px;
+            border: 1px solid rgba(255, 107, 107, 0.4);
+            backdrop-filter: blur(12px);
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            position: relative;
+        }
+
+        .rules-section p {
+            color: #e8e8e8;
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+                 .rules-section strong {
+             color: #ffd93d;
+             font-weight: 600;
+             text-shadow: 0 1px 2px rgba(255, 217, 61, 0.3);
+         }
+
+         /* 扫码区域样式 - 美化 */
+         .qr-section {
+             text-align: center;
+             margin: 35px 0;
+             padding: 25px;
+             background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+             border-radius: 20px;
+             border: 1px solid rgba(255, 193, 7, 0.3);
+             backdrop-filter: blur(10px);
+             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+         }
+
+         .qr-section h3 {
+             background: linear-gradient(135deg, #ffd93d 0%, #ff6b6b 100%);
+             -webkit-background-clip: text;
+             -webkit-text-fill-color: transparent;
+             background-clip: text;
+             font-size: 20px;
+             font-weight: 700;
+             margin-bottom: 15px;
+             text-shadow: 0 2px 4px rgba(255, 193, 7, 0.3);
+         }
+
+         .qr-section p {
+             color: #e8e8e8;
+             font-size: 16px;
+             line-height: 1.6;
+         }
+
+         .qr-section a {
+             color: #ffd93d;
+             text-decoration: none;
+             font-weight: 600;
+             padding: 5px 10px;
+             background: rgba(255, 193, 7, 0.1);
+             border-radius: 8px;
+             transition: all 0.3s ease;
+             text-shadow: 0 1px 2px rgba(255, 193, 7, 0.3);
+         }
+
+         .qr-section a:hover {
+             background: rgba(255, 193, 7, 0.2);
+             transform: translateY(-1px);
+             box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);
+         }
 
         .rules-section h3 {
             color: #ff6b6b;
@@ -195,50 +393,119 @@
             line-height: 1.4;
         }
 
-        /* 下载按钮样式 */
+        /* 下载按钮样式 - 大幅美化 */
         .download-btn {
             display: inline-block;
-            padding: 18px 40px;
-            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            padding: 20px 50px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 50%, #ffd93d 100%);
             color: white;
             text-decoration: none;
             border-radius: 50px;
-            font-size: 18px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+            font-size: 20px;
+            font-weight: 700;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 
+                0 15px 35px rgba(255, 107, 107, 0.4),
+                0 5px 15px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
             border: none;
             cursor: pointer;
             text-align: center;
-            margin: 10px;
+            margin: 20px;
+            position: relative;
+            overflow: hidden;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .download-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .download-btn:hover::before {
+            left: 100%;
         }
 
         .download-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);
-            background: linear-gradient(45deg, #ff5252, #ff7979);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 
+                0 25px 50px rgba(255, 107, 107, 0.6),
+                0 10px 25px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            background: linear-gradient(135deg, #ff5252 0%, #ff7979 50%, #ffc107 100%);
         }
 
         .download-btn:active {
-            transform: translateY(-1px);
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 
+                0 15px 30px rgba(255, 107, 107, 0.5),
+                0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
-        /* 移动端适配 */
+        /* 移动端适配 - 优化 */
         @media (max-width: 768px) {
             .container {
                 padding: 15px;
+            }
+            
+            .header {
+                padding: 30px 20px;
+                margin-bottom: 30px;
+            }
+            
+            .header h1 {
+                font-size: 28px;
+            }
+            
+            .activity-info, .activity-table, .rules-section, .qr-section {
+                padding: 25px 20px;
+                margin-bottom: 25px;
+            }
+            
+            .activity-table h2 {
+                font-size: 22px;
+            }
+            
+            th, td {
+                padding: 15px 10px;
+                font-size: 14px;
+            }
+            
+            .download-btn {
+                padding: 18px 40px;
+                font-size: 18px;
+                width: 100%;
+                max-width: 320px;
+                margin: 15px 0;
+            }
+            
+            .qr-section h3 {
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 12px;
+            }
+            
+            .header {
+                padding: 25px 15px;
+                margin-bottom: 25px;
             }
             
             .header h1 {
                 font-size: 24px;
             }
             
-            .header p {
-                font-size: 14px;
-            }
-            
-            .activity-table, .rules-section, .features-section {
-                padding: 20px;
+            .activity-info, .activity-table, .rules-section, .qr-section {
+                padding: 20px 15px;
                 margin-bottom: 20px;
             }
             
@@ -252,45 +519,13 @@
             }
             
             .download-btn {
-                padding: 15px 30px;
+                padding: 16px 35px;
+                font-size: 17px;
+                margin: 12px 0;
+            }
+            
+            .qr-section h3 {
                 font-size: 16px;
-                width: 100%;
-                max-width: 300px;
-            }
-            
-            .features-grid {
-                grid-template-columns: 1fr;
-                gap: 15px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 10px;
-            }
-            
-            .header {
-                padding: 20px 15px;
-                margin-bottom: 20px;
-            }
-            
-            .header h1 {
-                font-size: 22px;
-            }
-            
-            .activity-table, .rules-section, .features-section {
-                padding: 15px;
-                margin-bottom: 15px;
-            }
-            
-            th, td {
-                padding: 10px 6px;
-                font-size: 12px;
-            }
-            
-            .download-btn {
-                padding: 12px 25px;
-                font-size: 15px;
             }
         }
     </style>
@@ -379,9 +614,9 @@
         </div>
 
         <!-- 扫码添加IPAI女神办理 -->
-        <div class="qr-section" style="text-align: center; margin: 30px 0;">
+        <div class="qr-section">
             <h3>【扫码添加IPAI女神办理】</h3> <!-- 【修改位置34】扫码标题 -->
-            <p>谷歌浏览器搜索网址：<a href="http://myjpai.cn" target="_blank" style="color: #ff6b6b; text-decoration: none;">myjpai.cn</a> 下载</p> <!-- 【修改位置35】网址 -->
+            <p>谷歌浏览器搜索网址：<a href="http://myjpai.cn" target="_blank">myjpai.cn</a> 下载</p> <!-- 【修改位置35】网址 -->
         </div>
 
         <!-- 立即领取按钮 -->
