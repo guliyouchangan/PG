@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="theme-color" content="#2c2c2c">
+    <meta name="msapplication-navbutton-color" content="#2c2c2c">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>APP下载活动页面</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* 强制样式重置 - 解决Android兼容性问题 */
+        html {
+            background: #2c2c2c !important;
+            min-height: 100%;
+        }
+        
+        html, body {
+            background-color: #2c2c2c !important;
+            color: white !important;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            background: #2c2c2c;
+            background: -webkit-linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
+            background: -moz-linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
+            background: -o-linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
+            background: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
+            color: white;
+            min-height: 100vh;
+            padding: 10px;
+            margin: 0;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 15px 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #ff6b6b;
+        }
+
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            margin: 25px 0 20px 0;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #ff6b6b;
+            line-height: 1.3;
+        }
+
+        .activity-table {
+            background: rgba(255, 255, 255, 0.1);
+            background: -webkit-linear-gradient(rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+            background: linear-gradient(rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+        }
+
+        .table-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            min-height: 40px;
+        }
+
+        .table-row:last-child {
+            border-bottom: none;
+        }
+
+        .table-label {
+            font-size: 14px;
+            color: #cccccc;
+            flex: 1;
+            line-height: 1.4;
+        }
+
+        .table-value {
+            font-size: 14px;
+            font-weight: bold;
+            color: #ff6b6b;
+            text-align: right;
+            flex-shrink: 0;
+            margin-left: 10px;
+            line-height: 1.4;
+        }
+
+        .rules-content {
+            background: rgba(255, 255, 255, 0.1);
+            background: -webkit-linear-gradient(rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+            background: linear-gradient(rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            line-height: 1.6;
+        }
+
+        .rules-text {
+            margin-bottom: 12px;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .feature-list {
+            background: rgba(255, 255, 255, 0.1);
+            background: -webkit-linear-gradient(rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+            background: linear-gradient(rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .feature-item::before {
+            content: "✓";
+            color: #4CAF50;
+            font-weight: bold;
+            margin-right: 10px;
+            margin-top: 2px;
+        }
+
+        .warning-text {
+            font-size: 11px;
+            color: #ffa500;
+            text-align: center;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            padding: 0 5px;
+        }
+
+        .download-btn {
+            display: block;
+            width: 100%;
+            max-width: 280px;
+            margin: 0 auto;
+            padding: 16px 20px;
+            background: #ff6b6b;
+            background: -webkit-linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            background: -moz-linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            background: -o-linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            transition: all 0.3s ease;
+            -webkit-transition: all 0.3s ease;
+            box-sizing: border-box;
+            min-height: 50px;
+            display: flex;
+            display: -webkit-flex;
+            align-items: center;
+            -webkit-align-items: center;
+            justify-content: center;
+            -webkit-justify-content: center;
+            cursor: pointer;
+            outline: none;
+            font-family: inherit;
+            
+            /* 移动端触摸优化 */
+            touch-action: manipulation;
+            -webkit-appearance: none;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            pointer-events: auto;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
+        }
+
+        .download-btn:active {
+            transform: translateY(0);
+        }
+
+        .download-btn:focus {
+            outline: 2px solid rgba(255, 107, 107, 0.5);
+            outline-offset: 2px;
+        }
+
+        /* 标记注释样式 */
+        .edit-comment {
+            color: #00ff00;
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        /* 移动端优化 - 小屏幕设备 */
+        @media (max-width: 480px) {
+            body {
+                padding: 3px;
+            }
+            
+            .container {
+                padding: 8px 5px;
+            }
+            
+            .header {
+                margin-bottom: 15px;
+            }
+            
+            .logo {
+                font-size: 18px;
+                margin-bottom: 5px;
+            }
+            
+            .title {
+                font-size: 20px;
+                margin-bottom: 10px;
+            }
+            
+            .section-title {
+                font-size: 18px;
+                margin: 15px 0 10px 0;
+                padding-bottom: 5px;
+            }
+            
+            .activity-table, .rules-content, .feature-list {
+                padding: 10px;
+                margin-bottom: 12px;
+            }
+            
+            .table-row {
+                padding: 8px 0;
+                min-height: 32px;
+            }
+            
+            .table-label, .table-value {
+                font-size: 13px;
+            }
+            
+            .rules-text, .feature-item {
+                font-size: 12px;
+                margin-bottom: 8px;
+            }
+            
+            .warning-text {
+                font-size: 10px;
+                margin-bottom: 12px;
+                line-height: 1.4;
+            }
+            
+            .download-btn {
+                font-size: 15px;
+                padding: 12px 16px;
+                min-height: 44px;
+            }
+        }
+
+        /* 超小屏幕设备优化 */
+        @media (max-width: 320px) {
+            .container {
+                padding: 8px 3px;
+            }
+            
+            .activity-table, .rules-content, .feature-list {
+                padding: 10px;
+            }
+            
+            .table-label, .table-value {
+                font-size: 12px;
+            }
+            
+            .rules-text, .feature-item {
+                font-size: 11px;
+            }
+        }
+
+        /* 横屏优化 */
+        @media (orientation: landscape) and (max-height: 500px) {
+            .header {
+                margin-bottom: 15px;
+            }
+            
+            .section-title {
+                margin: 15px 0 10px 0;
+            }
+            
+            .activity-table, .rules-content, .feature-list {
+                margin-bottom: 15px;
+            }
+        }
+
+        /* iPhone专用优化 */
+        @media (max-width: 414px) and (-webkit-min-device-pixel-ratio: 2) {
+            body {
+                font-size: 14px;
+            }
+            
+            .container {
+                padding: 5px 3px;
+            }
+            
+            .header {
+                margin-bottom: 12px;
+            }
+            
+            .section-title {
+                margin: 12px 0 8px 0;
+                font-size: 17px;
+            }
+            
+            .activity-table, .rules-content, .feature-list {
+                padding: 8px;
+                margin-bottom: 10px;
+            }
+            
+            .table-row {
+                padding: 6px 0;
+                min-height: 28px;
+            }
+            
+            .rules-text {
+                margin-bottom: 6px;
+            }
+            
+            .feature-item {
+                margin-bottom: 6px;
+            }
+            
+            .warning-text {
+                margin-bottom: 10px;
+                padding: 0 3px;
+            }
+        }
+
+        /* Android浏览器兼容性修复 */
+        @-webkit-keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Android专用样式修复 */
+        @media screen and (max-width: 768px) {
+            body {
+                background-attachment: fixed;
+                background-repeat: no-repeat;
+                background-size: cover;
+                -webkit-animation: fadeIn 0.3s ease-in;
+                animation: fadeIn 0.3s ease-in;
+            }
+            
+            .container {
+                background: rgba(0, 0, 0, 0.1);
+                min-height: 100vh;
+                position: relative;
+            }
+            
+            .activity-table, .rules-content, .feature-list {
+                background: rgba(255, 255, 255, 0.15) !important;
+                border: 1px solid rgba(255, 255, 255, 0.3) !important;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+            
+            /* 确保文字在Android上可见 */
+            .table-label, .rules-text, .feature-item {
+                color: #ffffff !important;
+                text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+            }
+            
+            .table-value {
+                color: #ff6b6b !important;
+                text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+            }
+            
+            .section-title {
+                color: #ffffff !important;
+                text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+            }
+            
+            .logo, .title {
+                color: #ffffff !important;
+                text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+            }
+            
+            .logo {
+                color: #ff6b6b !important;
+            }
+        }
+
+        /* 触摸设备优化 */
+        @media (hover: none) and (pointer: coarse) {
+            .download-btn {
+                min-height: 50px;
+                padding: 16px 20px;
+            }
+            
+            .table-row {
+                min-height: 40px;
+                padding: 12px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 页面头部 - 可修改区域 -->
+        <div class="header">
+            <div class="logo">
+                🎯 <!-- 【修改位置1】Logo图标，可以替换为其他图标或删除 -->
+                <span>JPAI APP</span> <!-- 【修改位置2】APP名称 -->
+            </div>
+            <h1 class="title">
+                下载 & 活动详情 <!-- 【修改位置3】主标题 -->
+            </h1>
+        </div>
+
+        <!-- 活动内容表格 -->
+        <h2 class="section-title">活动内容</h2> <!-- 【修改位置4】章节标题 -->
+        
+        <div class="activity-table">
+            <div class="table-row">
+                <span class="table-label">存款次数</span> <!-- 【修改位置5】活动项目名称 -->
+                <span class="table-value">22次</span> <!-- 【修改位置6】活动项目数值 -->
+            </div>
+            <div class="table-row">
+                <span class="table-label">存款总量达到</span> <!-- 【修改位置7】活动项目名称 -->
+                <span class="table-value">100元及以上</span> <!-- 【修改位置8】活动项目数值 -->
+            </div>
+            <div class="table-row">
+                <span class="table-label">赠送彩金</span> <!-- 【修改位置9】活动项目名称 -->
+                <span class="table-value">38元</span> <!-- 【修改位置10】活动项目数值 -->
+            </div>
+            <div class="table-row">
+                <span class="table-label">游戏限制</span> <!-- 【修改位置11】活动项目名称 -->
+                <span class="table-value">无</span> <!-- 【修改位置12】活动项目数值 -->
+            </div>
+            <div class="table-row">
+                <span class="table-label">流水限制</span> <!-- 【修改位置13】活动项目名称 -->
+                <span class="table-value">3倍</span> <!-- 【修改位置14】活动项目数值 -->
+            </div>
+            <div class="table-row">
+                <span class="table-label">有效投注</span> <!-- 【修改位置15】活动项目名称 -->
+                <span class="table-value">114</span> <!-- 【修改位置16】活动项目数值 -->
+            </div>
+        </div>
+
+        <!-- 活动规则 -->
+        <h2 class="section-title">活动规则</h2> <!-- 【修改位置17】章节标题 -->
+        
+        <div class="rules-content">
+            <p class="rules-text">
+                下载之后，点击账号绑定，填写您真实有效的会员账号并登录一次，系统将在24小时之内自动送出38元彩金！
+                <!-- 【修改位置18】活动规则第一段文字 -->
+            </p>
+            <p class="rules-text">
+                注：每位会员、每个QQ、每台手机仅限申请一次。如出现同IP多账号现象，则视为同一个人，该IP下其他所有账号，公司有权拒绝发放彩金。
+                <!-- 【修改位置19】活动规则第二段文字 -->
+            </p>
+        </div>
+
+        <!-- APP功能介绍 -->
+        <h2 class="section-title">APP 客户端超实用功能</h2> <!-- 【修改位置20】章节标题 -->
+        
+        <div class="feature-list">
+            <div class="feature-item">
+                及时更新最新最快网址，无需牢记众多域名，轻松方便游戏。
+                <!-- 【修改位置21】功能特点1 -->
+            </div>
+            <div class="feature-item">
+                精简的客服链接通道，无需保存联系方式，有任何疑问能快速获得帮助。
+                <!-- 【修改位置22】功能特点2 -->
+            </div>
+            <div class="feature-item">
+                第一时间了解我们最新优惠APP最新动态，获取最新优惠资讯。
+                <!-- 【修改位置23】功能特点3 -->
+            </div>
+        </div>
+
+        <!-- 警告提示 -->
+        <div class="warning-text">
+            温馨提示：此软件纯绿色软件，绝对无毒，请放心下载安装。<br>
+            若遇360检测风险提示，请点击"允许继续运行"和"不再提醒"，方便轻松访问！
+            <!-- 【修改位置24】警告提示文字 -->
+        </div>
+
+        <!-- 下载按钮 - 自动检测方案 -->
+        <div style="text-align: center;">
+            <!-- 通用按钮 - 自动检测有无APP -->
+            <button class="download-btn" onclick="tryOpenApp()" style="border: none; cursor: pointer;">
+                📱 立即使用APP <!-- 【修改位置25】下载按钮文字 -->
+            </button>
+        </div>
+        
+        <!-- 状态显示区域 -->
+        <div id="status-display" style="text-align: center; margin-top: 20px; min-height: 60px;">
+            <!-- 这里会显示检测状态 -->
+        </div>
+    </div>
+
+    <script>
+        // 【修改位置26】配置区域
+        var appConfig = {
+            appScheme: 'jpaiapp://open?type=99',        // APP深链接
+            fallbackUrl: 'http://www.myjpai.cn/home',   // 备用网址
+            detectTimeout: 2500                          // 检测超时时间(毫秒)
+        };
+
+        function tryOpenApp() {
+            var statusDiv = document.getElementById('status-display');
+            var startTime = Date.now();
+            var appOpened = false;
+            
+            // 显示检测状态
+            statusDiv.innerHTML = 
+                '<div style="background: rgba(255, 255, 255, 0.1); padding: 15px; border-radius: 10px; border: 1px solid rgba(255, 107, 107, 0.3);">' +
+                '<p style="color: #ffa500; margin: 0 0 10px 0; font-size: 16px; font-weight: bold;">🔄 正在检测APP...</p>' +
+                '<p style="color: #ccc; margin: 0; font-size: 14px;">正在尝试打开APP，请稍候...</p>' +
+                '</div>';
+
+            // 检测页面可见性变化
+            function onVisibilityChange() {
+                if (document.hidden) {
+                    // 页面被隐藏，说明APP可能已经打开
+                    appOpened = true;
+                    statusDiv.innerHTML = 
+                        '<div style="background: rgba(76, 175, 80, 0.2); padding: 15px; border-radius: 10px; border: 1px solid rgba(76, 175, 80, 0.5);">' +
+                        '<p style="color: #4CAF50; margin: 0; font-size: 16px; font-weight: bold;">✅ APP已成功打开！</p>' +
+                        '</div>';
+                    document.removeEventListener('visibilitychange', onVisibilityChange);
+                }
+            }
+
+            // 检测页面失去焦点
+            function onPageBlur() {
+                setTimeout(function() {
+                    if (document.hidden && (Date.now() - startTime > 1000)) {
+                        appOpened = true;
+                        statusDiv.innerHTML = 
+                            '<div style="background: rgba(76, 175, 80, 0.2); padding: 15px; border-radius: 10px; border: 1px solid rgba(76, 175, 80, 0.5);">' +
+                            '<p style="color: #4CAF50; margin: 0; font-size: 16px; font-weight: bold;">✅ APP已成功打开！</p>' +
+                            '</div>';
+                        window.removeEventListener('blur', onPageBlur);
+                    }
+                }, 500);
+            }
+
+            // 添加监听器
+            document.addEventListener('visibilitychange', onVisibilityChange);
+            window.addEventListener('blur', onPageBlur);
+
+            // 尝试打开APP
+            var iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            iframe.src = appConfig.appScheme;
+            document.body.appendChild(iframe);
+
+            // 设置检测超时
+            setTimeout(function() {
+                // 移除iframe
+                if (iframe && iframe.parentNode) {
+                    iframe.parentNode.removeChild(iframe);
+                }
+
+                if (!appOpened) {
+                    // APP未打开，显示跳转提示并自动跳转
+                    statusDiv.innerHTML = 
+                        '<div style="background: rgba(255, 107, 107, 0.2); padding: 15px; border-radius: 10px; border: 1px solid rgba(255, 107, 107, 0.5);">' +
+                        '<p style="color: #ff6b6b; margin: 0 0 10px 0; font-size: 16px; font-weight: bold;">📱 未检测到APP</p>' +
+                        '<p style="color: #ccc; margin: 0 0 15px 0; font-size: 14px;">正在为您跳转到网页版...</p>' +
+                        '<a href="' + appConfig.fallbackUrl + '" style="display: inline-block; padding: 10px 20px; background: #ff6b6b; color: white; text-decoration: none; border-radius: 20px; font-size: 14px;">🌐 立即访问网页版</a>' +
+                        '</div>';
+
+                    // 2秒后自动跳转
+                    setTimeout(function() {
+                        if (!appOpened) {
+                            window.location.href = appConfig.fallbackUrl;
+                        }
+                    }, 2000);
+                }
+
+                // 清理监听器
+                document.removeEventListener('visibilitychange', onVisibilityChange);
+                window.removeEventListener('blur', onPageBlur);
+                         }, appConfig.detectTimeout);
+         }
+     </script>
+
+ </body>
+</html> 
