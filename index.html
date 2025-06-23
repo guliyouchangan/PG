@@ -14,7 +14,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            background: linear-gradient(135deg, #4a4a4a 0%, #2c2c2c 50%, #1a1a1a 100%);
             color: #ffffff;
             line-height: 1.6;
             min-height: 100vh;
@@ -24,7 +24,7 @@
             overflow-x: hidden;
         }
 
-        /* 添加动态背景效果 */
+        /* 商务风格背景纹理 */
         body::before {
             content: '';
             position: fixed;
@@ -33,16 +33,11 @@
             width: 100%;
             height: 100%;
             background: 
-                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 107, 107, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(255, 193, 7, 0.08) 0%, transparent 50%);
+                linear-gradient(45deg, transparent 48%, rgba(255, 255, 255, 0.02) 49%, rgba(255, 255, 255, 0.02) 51%, transparent 52%),
+                linear-gradient(-45deg, transparent 48%, rgba(255, 255, 255, 0.02) 49%, rgba(255, 255, 255, 0.02) 51%, transparent 52%);
+            background-size: 20px 20px;
             z-index: -1;
-            animation: backgroundFloat 20s ease-in-out infinite;
-        }
-
-        @keyframes backgroundFloat {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(1deg); }
+            opacity: 0.3;
         }
 
         .container {
@@ -53,118 +48,78 @@
             z-index: 1;
         }
 
-        /* 头部样式 - 大幅美化 */
+        /* 头部样式 - 商务风格 */
         .header {
             text-align: center;
-            margin-bottom: 40px;
-            padding: 40px 30px;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.08) 100%);
-            border-radius: 25px;
-            border: 1px solid rgba(255, 107, 107, 0.4);
-            backdrop-filter: blur(15px);
+            margin-bottom: 30px;
+            padding: 25px 30px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.04) 100%);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
             box-shadow: 
-                0 20px 40px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+                0 4px 20px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
             position: relative;
-            overflow: hidden;
         }
 
         .header::before {
             content: '';
             position: absolute;
             top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 120px;
-            height: 4px;
-            background: linear-gradient(90deg, #ff6b6b, #ffd93d, #6bcf7f, #ff6b6b);
-            border-radius: 2px;
-            animation: headerShimmer 3s ease-in-out infinite;
-        }
-
-        @keyframes headerShimmer {
-            0%, 100% { opacity: 0.7; transform: translateX(-50%) scaleX(1); }
-            50% { opacity: 1; transform: translateX(-50%) scaleX(1.3); }
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #dc3545, #ff6b6b);
+            border-radius: 8px 8px 0 0;
         }
 
         .header h1 {
-            font-size: 36px;
-            font-weight: 700;
-            background: linear-gradient(135deg, #ff6b6b 0%, #ffd93d 50%, #ff6b6b 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-size: 28px;
+            font-weight: 600;
+            color: #ffffff;
             margin-bottom: 20px;
-            text-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
-            animation: titlePulse 4s ease-in-out infinite;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
             position: relative;
             z-index: 2;
         }
 
-        @keyframes titlePulse {
-            0%, 100% { transform: scale(1); filter: brightness(1); }
-            50% { transform: scale(1.02); filter: brightness(1.1); }
-        }
-
-        /* 活动说明样式 - 大幅美化 */
+        /* 活动说明样式 - 商务风格 */
         .activity-info {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 100%);
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 35px;
-            border: 1px solid rgba(255, 107, 107, 0.4);
-            backdrop-filter: blur(12px);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.04) 100%);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
             box-shadow: 
-                0 15px 35px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+                0 4px 20px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
             position: relative;
-            overflow: hidden;
-        }
-
-        .activity-info::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255, 107, 107, 0.08), transparent);
-            animation: infoShine 6s linear infinite;
-        }
-
-        @keyframes infoShine {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
         }
 
         .activity-info p {
-            font-size: 17px;
+            font-size: 16px;
             color: #e8e8e8;
-            margin-bottom: 15px;
-            line-height: 1.7;
+            margin-bottom: 12px;
+            line-height: 1.6;
             position: relative;
-            z-index: 2;
         }
 
         .activity-info strong {
-            color: #ffd93d;
+            color: #dc3545;
             font-weight: 600;
-            text-shadow: 0 1px 3px rgba(255, 217, 61, 0.4);
         }
 
-        /* 活动表格样式 - 大幅美化 */
+        /* 活动表格样式 - 商务风格 */
         .activity-table {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.06) 100%);
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 35px;
-            border: 1px solid rgba(255, 107, 107, 0.4);
-            backdrop-filter: blur(15px);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.04) 100%);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
             box-shadow: 
-                0 20px 40px rgba(0, 0, 0, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+                0 4px 20px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
             position: relative;
-            overflow: hidden;
         }
 
         .activity-table::before {
@@ -174,25 +129,17 @@
             left: 0;
             right: 0;
             height: 3px;
-            background: linear-gradient(90deg, #ff6b6b, #ffd93d, #6bcf7f, #ff6b6b);
-            animation: tableGlow 4s ease-in-out infinite;
-        }
-
-        @keyframes tableGlow {
-            0%, 100% { opacity: 0.8; }
-            50% { opacity: 1; }
+            background: linear-gradient(90deg, #dc3545, #ff6b6b);
+            border-radius: 8px 8px 0 0;
         }
 
         .activity-table h2 {
-            background: linear-gradient(135deg, #ff6b6b 0%, #ffd93d 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-size: 26px;
-            margin-bottom: 25px;
+            color: #ffffff;
+            font-size: 22px;
+            margin-bottom: 20px;
             text-align: center;
-            font-weight: 700;
-            text-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
             position: relative;
             z-index: 2;
         }
@@ -205,126 +152,114 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
-            border-radius: 15px;
+            margin-bottom: 15px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 6px;
             overflow: hidden;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
         th, td {
-            padding: 18px 15px;
+            padding: 15px 12px;
             text-align: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            position: relative;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         th {
-            background: linear-gradient(135deg, rgba(255, 107, 107, 0.3) 0%, rgba(255, 107, 107, 0.2) 100%);
+            background: linear-gradient(135deg, rgba(220, 53, 69, 0.8) 0%, rgba(220, 53, 69, 0.6) 100%);
             color: #ffffff;
             font-weight: 600;
-            font-size: 15px;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-            border-bottom: 2px solid rgba(255, 107, 107, 0.4);
+            font-size: 14px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
         }
 
         td {
-            color: #e0e0e0;
-            font-size: 15px;
+            color: #e8e8e8;
+            font-size: 14px;
             font-weight: 500;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
         }
 
         tr:hover {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.06) 100%);
-            transform: translateY(-1px);
+            background: rgba(255, 255, 255, 0.08);
         }
 
         tr:hover td {
             color: #ffffff;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
         }
 
         /* 特殊单元格样式 */
         td[rowspan] {
-            background: linear-gradient(135deg, rgba(255, 193, 7, 0.2) 0%, rgba(255, 193, 7, 0.1) 100%);
-            color: #ffd93d !important;
+            background: linear-gradient(135deg, rgba(220, 53, 69, 0.3) 0%, rgba(220, 53, 69, 0.2) 100%);
+            color: #dc3545 !important;
             font-weight: 700;
-            text-shadow: 0 1px 3px rgba(255, 193, 7, 0.4);
         }
 
-        /* 规则说明样式 - 美化 */
+                /* 规则说明样式 - 商务风格 */
         .rules-section {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.06) 100%);
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 35px;
-            border: 1px solid rgba(255, 107, 107, 0.4);
-            backdrop-filter: blur(12px);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.04) 100%);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
             box-shadow: 
-                0 15px 35px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+                0 4px 20px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
             position: relative;
         }
 
         .rules-section p {
             color: #e8e8e8;
-            font-size: 16px;
-            line-height: 1.7;
-            margin-bottom: 15px;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 12px;
         }
 
-                 .rules-section strong {
-             color: #ffd93d;
-             font-weight: 600;
-             text-shadow: 0 1px 2px rgba(255, 217, 61, 0.3);
-         }
+        .rules-section strong {
+            color: #dc3545;
+            font-weight: 600;
+        }
 
-         /* 扫码区域样式 - 美化 */
+         /* 扫码区域样式 - 商务风格 */
          .qr-section {
              text-align: center;
-             margin: 35px 0;
+             margin: 25px 0;
              padding: 25px;
-             background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
-             border-radius: 20px;
-             border: 1px solid rgba(255, 193, 7, 0.3);
-             backdrop-filter: blur(10px);
-             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+             background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.04) 100%);
+             border-radius: 8px;
+             border: 1px solid rgba(255, 255, 255, 0.15);
+             box-shadow: 
+                 0 4px 20px rgba(0, 0, 0, 0.4),
+                 inset 0 1px 0 rgba(255, 255, 255, 0.1);
          }
 
          .qr-section h3 {
-             background: linear-gradient(135deg, #ffd93d 0%, #ff6b6b 100%);
-             -webkit-background-clip: text;
-             -webkit-text-fill-color: transparent;
-             background-clip: text;
-             font-size: 20px;
-             font-weight: 700;
+             color: #ffffff;
+             font-size: 18px;
+             font-weight: 600;
              margin-bottom: 15px;
-             text-shadow: 0 2px 4px rgba(255, 193, 7, 0.3);
+             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
          }
 
          .qr-section p {
              color: #e8e8e8;
-             font-size: 16px;
+             font-size: 15px;
              line-height: 1.6;
          }
 
          .qr-section a {
-             color: #ffd93d;
+             color: #dc3545;
              text-decoration: none;
              font-weight: 600;
-             padding: 5px 10px;
-             background: rgba(255, 193, 7, 0.1);
-             border-radius: 8px;
+             padding: 4px 8px;
+             background: rgba(220, 53, 69, 0.1);
+             border-radius: 4px;
              transition: all 0.3s ease;
-             text-shadow: 0 1px 2px rgba(255, 193, 7, 0.3);
          }
 
          .qr-section a:hover {
-             background: rgba(255, 193, 7, 0.2);
+             background: rgba(220, 53, 69, 0.2);
              transform: translateY(-1px);
-             box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);
          }
 
         .rules-section h3 {
@@ -393,59 +328,40 @@
             line-height: 1.4;
         }
 
-        /* 下载按钮样式 - 大幅美化 */
+        /* 下载按钮样式 - 商务风格 */
         .download-btn {
             display: inline-block;
-            padding: 20px 50px;
-            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 50%, #ffd93d 100%);
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
             color: white;
             text-decoration: none;
-            border-radius: 50px;
-            font-size: 20px;
-            font-weight: 700;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: 600;
+            transition: all 0.3s ease;
             box-shadow: 
-                0 15px 35px rgba(255, 107, 107, 0.4),
-                0 5px 15px rgba(0, 0, 0, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+                0 4px 15px rgba(220, 53, 69, 0.4),
+                0 2px 8px rgba(0, 0, 0, 0.3);
             border: none;
             cursor: pointer;
             text-align: center;
-            margin: 20px;
-            position: relative;
-            overflow: hidden;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .download-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.6s ease;
-        }
-
-        .download-btn:hover::before {
-            left: 100%;
+            margin: 15px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
         }
 
         .download-btn:hover {
-            transform: translateY(-5px) scale(1.05);
+            transform: translateY(-2px);
             box-shadow: 
-                0 25px 50px rgba(255, 107, 107, 0.6),
-                0 10px 25px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.4);
-            background: linear-gradient(135deg, #ff5252 0%, #ff7979 50%, #ffc107 100%);
+                0 6px 20px rgba(220, 53, 69, 0.5),
+                0 4px 12px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(135deg, #c82333 0%, #a71e2a 100%);
         }
 
         .download-btn:active {
-            transform: translateY(-2px) scale(1.02);
+            transform: translateY(0px);
             box-shadow: 
-                0 15px 30px rgba(255, 107, 107, 0.5),
-                0 5px 15px rgba(0, 0, 0, 0.2);
+                0 2px 8px rgba(220, 53, 69, 0.4),
+                0 1px 4px rgba(0, 0, 0, 0.3);
         }
 
         /* 移动端适配 - 优化 */
