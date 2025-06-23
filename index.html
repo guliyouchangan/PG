@@ -374,93 +374,39 @@
         function tryOpenApp() {
             var appOpened = false;
             var startTime = Date.now();
-            var checkCount = 0;
 
             // 检测页面可见性变化（APP打开时页面会被隐藏）
             function onVisibilityChange() {
                 if (document.hidden) {
                     appOpened = true;
-                    cleanup();
                 }
             }
 
             // 检测页面失去焦点
             function onPageBlur() {
-                // 延迟检查，因为有些浏览器切换会有延迟
-                setTimeout(function() {
-                    if (document.hidden || !document.hasFocus()) {
-                        appOpened = true;
-                        cleanup();
-                    }
-                }, 100);
+                appOpened = true;
             }
 
-            // 检测页面焦点变化
-            function onFocusChange() {
-                if (!document.hasFocus()) {
-                    setTimeout(function() {
-                        if (!document.hasFocus() && (Date.now() - startTime > 500)) {
-                            appOpened = true;
-                            cleanup();
-                        }
-                    }, 200);
-                }
-            }
-
-            // 清理所有监听器
-            function cleanup() {
-                document.removeEventListener('visibilitychange', onVisibilityChange);
-                window.removeEventListener('blur', onPageBlur);
-                window.removeEventListener('focus', onFocusChange);
-                document.removeEventListener('focusin', onFocusChange);
-                document.removeEventListener('focusout', onFocusChange);
-            }
-
-            // 添加多种监听器
+            // 添加监听器
             document.addEventListener('visibilitychange', onVisibilityChange);
             window.addEventListener('blur', onPageBlur);
-            window.addEventListener('focus', onFocusChange);
-            document.addEventListener('focusin', onFocusChange);
-            document.addEventListener('focusout', onFocusChange);
+            window.addEventListener('pagehide', onPageBlur);
 
-            // 使用iframe方式尝试打开APP（不会直接跳转页面）
-            var iframe = document.createElement('iframe');
-            iframe.style.display = 'none';
-            iframe.src = appConfig.appScheme;
-            document.body.appendChild(iframe);
+            // 直接使用window.location跳转深链接
+            window.location.href = appConfig.appScheme;
 
-            // 快速检测APP是否打开
-            var checkInterval = setInterval(function() {
-                checkCount++;
+            // 设置超时检测
+            setTimeout(function() {
+                // 清理监听器
+                document.removeEventListener('visibilitychange', onVisibilityChange);
+                window.removeEventListener('blur', onPageBlur);
+                window.removeEventListener('pagehide', onPageBlur);
                 
-                // 检查页面是否被隐藏或失去焦点
-                if (document.hidden || !document.hasFocus()) {
-                    appOpened = true;
-                    clearInterval(checkInterval);
-                    cleanup();
-                    // 移除iframe
-                    if (iframe && iframe.parentNode) {
-                        iframe.parentNode.removeChild(iframe);
-                    }
-                    return;
+                // 如果APP没有打开（页面没有被隐藏），跳转到网页版
+                if (!appOpened) {
+                    window.location.href = appConfig.fallbackUrl;
                 }
-                
-                // 检查时间是否超过阈值 - 缩短到1秒
-                if (checkCount >= 10) { // 检查1秒 (10 * 100ms)
-                    clearInterval(checkInterval);
-                    cleanup();
-                    
-                    // 移除iframe
-                    if (iframe && iframe.parentNode) {
-                        iframe.parentNode.removeChild(iframe);
-                    }
-                    
-                    // APP没有打开，直接跳转到网页版
-                    if (!appOpened) {
-                        window.location.href = appConfig.fallbackUrl;
-                    }
-                }
-            }, 100);
+            }, 1500); // 1.5秒超时
         }
     </script>
 
