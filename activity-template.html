@@ -532,17 +532,12 @@
             <!-- 【修改位置24】警告提示文字 -->
         </div>
 
-        <!-- 下载按钮 - 自动检测方案 -->
+        <!-- 下载按钮 - 静默检测方案 -->
         <div style="text-align: center;">
-            <!-- 通用按钮 - 自动检测有无APP -->
+            <!-- 通用按钮 - 静默检测有无APP -->
             <button class="download-btn" onclick="tryOpenApp()" style="border: none; cursor: pointer;">
                 📱 立即使用APP <!-- 【修改位置25】下载按钮文字 -->
             </button>
-        </div>
-        
-        <!-- 状态显示区域 -->
-        <div id="status-display" style="text-align: center; margin-top: 20px; min-height: 60px;">
-            <!-- 这里会显示检测状态 -->
         </div>
     </div>
 
@@ -554,28 +549,16 @@
             detectTimeout: 2500                          // 检测超时时间(毫秒)
         };
 
-        function tryOpenApp() {
-            var statusDiv = document.getElementById('status-display');
-            var startTime = Date.now();
+                function tryOpenApp() {
             var appOpened = false;
-            
-            // 显示检测状态
-            statusDiv.innerHTML = 
-                '<div style="background: rgba(255, 255, 255, 0.1); padding: 15px; border-radius: 10px; border: 1px solid rgba(255, 107, 107, 0.3);">' +
-                '<p style="color: #ffa500; margin: 0 0 10px 0; font-size: 16px; font-weight: bold;">🔄 正在检测APP...</p>' +
-                '<p style="color: #ccc; margin: 0; font-size: 14px;">正在尝试打开APP，请稍候...</p>' +
-                '</div>';
+            var startTime = Date.now();
 
-            // 检测页面可见性变化
+            // 检测页面可见性变化（APP打开时页面会被隐藏）
             function onVisibilityChange() {
                 if (document.hidden) {
-                    // 页面被隐藏，说明APP可能已经打开
                     appOpened = true;
-                    statusDiv.innerHTML = 
-                        '<div style="background: rgba(76, 175, 80, 0.2); padding: 15px; border-radius: 10px; border: 1px solid rgba(76, 175, 80, 0.5);">' +
-                        '<p style="color: #4CAF50; margin: 0; font-size: 16px; font-weight: bold;">✅ APP已成功打开！</p>' +
-                        '</div>';
                     document.removeEventListener('visibilitychange', onVisibilityChange);
+                    window.removeEventListener('blur', onPageBlur);
                 }
             }
 
@@ -584,10 +567,7 @@
                 setTimeout(function() {
                     if (document.hidden && (Date.now() - startTime > 1000)) {
                         appOpened = true;
-                        statusDiv.innerHTML = 
-                            '<div style="background: rgba(76, 175, 80, 0.2); padding: 15px; border-radius: 10px; border: 1px solid rgba(76, 175, 80, 0.5);">' +
-                            '<p style="color: #4CAF50; margin: 0; font-size: 16px; font-weight: bold;">✅ APP已成功打开！</p>' +
-                            '</div>';
+                        document.removeEventListener('visibilitychange', onVisibilityChange);
                         window.removeEventListener('blur', onPageBlur);
                     }
                 }, 500);
@@ -597,7 +577,7 @@
             document.addEventListener('visibilitychange', onVisibilityChange);
             window.addEventListener('blur', onPageBlur);
 
-            // 尝试打开APP
+            // 尝试打开APP（使用隐藏iframe）
             var iframe = document.createElement('iframe');
             iframe.style.display = 'none';
             iframe.src = appConfig.appScheme;
@@ -610,28 +590,16 @@
                     iframe.parentNode.removeChild(iframe);
                 }
 
+                // 如果APP没有打开，直接跳转到网页版
                 if (!appOpened) {
-                    // APP未打开，显示跳转提示并自动跳转
-                    statusDiv.innerHTML = 
-                        '<div style="background: rgba(255, 107, 107, 0.2); padding: 15px; border-radius: 10px; border: 1px solid rgba(255, 107, 107, 0.5);">' +
-                        '<p style="color: #ff6b6b; margin: 0 0 10px 0; font-size: 16px; font-weight: bold;">📱 未检测到APP</p>' +
-                        '<p style="color: #ccc; margin: 0 0 15px 0; font-size: 14px;">正在为您跳转到网页版...</p>' +
-                        '<a href="' + appConfig.fallbackUrl + '" style="display: inline-block; padding: 10px 20px; background: #ff6b6b; color: white; text-decoration: none; border-radius: 20px; font-size: 14px;">🌐 立即访问网页版</a>' +
-                        '</div>';
-
-                    // 2秒后自动跳转
-                    setTimeout(function() {
-                        if (!appOpened) {
-                            window.location.href = appConfig.fallbackUrl;
-                        }
-                    }, 2000);
+                    window.location.href = appConfig.fallbackUrl;
                 }
 
                 // 清理监听器
                 document.removeEventListener('visibilitychange', onVisibilityChange);
                 window.removeEventListener('blur', onPageBlur);
-                         }, appConfig.detectTimeout);
-         }
+            }, appConfig.detectTimeout);
+        }
      </script>
 
  </body>
