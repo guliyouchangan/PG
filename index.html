@@ -42,14 +42,28 @@
             font-size: 28px;
             font-weight: bold;
             color: #ff6b6b;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
             text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
-        .header p {
+        /* 活动说明样式 */
+        .activity-info {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 107, 107, 0.3);
+        }
+
+        .activity-info p {
             font-size: 16px;
             color: #cccccc;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .activity-info strong {
+            color: #ff6b6b;
         }
 
         /* 活动表格样式 */
@@ -285,82 +299,101 @@
     <div class="container">
         <!-- 头部标题 -->
         <div class="header">
-            <h1>🎉 超级APP下载活动 🎉</h1>
-            <p>📅 活动时间：2024年1月1日 - 2024年12月31日</p>
-            <p>🎁 下载即送豪礼，邀请好友更有惊喜！</p>
+            <h1>PG娱乐城存款送福利</h1> <!-- 【修改位置1】主标题 -->
         </div>
 
-        <!-- 活动内容表格 -->
+        <!-- 活动说明 -->
+        <div class="activity-info">
+            <p><strong>活动对象：</strong>PG全体新老会员</p> <!-- 【修改位置2】活动对象 -->
+            <p><strong>活动详情：</strong>联系专属女神存款，可获取存款彩金，500可获18，最高可领取8888专属福利</p> <!-- 【修改位置3】活动详情 -->
+        </div>
+
+        <!-- 每日单等存款表格 -->
         <div class="activity-table">
-            <h2>🏆 活动奖励一览表</h2>
+            <h2>每日单等存款</h2> <!-- 【修改位置4】表格标题 -->
             <div class="table-responsive">
                 <table>
                     <thead>
                         <tr>
-                            <th>奖励等级</th>
-                            <th>完成条件</th>
-                            <th>奖励内容</th>
-                            <th>奖励价值</th>
+                            <th>存款金额</th> <!-- 【修改位置5】表头1 -->
+                            <th>可获彩金</th> <!-- 【修改位置6】表头2 -->
+                            <th>申请笔数</th> <!-- 【修改位置7】表头3 -->
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>🥇 黄金会员</td>
-                            <td>下载APP并注册</td>
-                            <td>100元现金券</td>
-                            <td>￥100</td>
+                            <td>100+</td> <!-- 【修改位置8】存款金额1 -->
+                            <td>5</td> <!-- 【修改位置9】彩金1 -->
+                            <td rowspan="11" style="vertical-align: middle; font-size: 16px; font-weight: bold;">每日限三笔</td> <!-- 【修改位置10】申请笔数 -->
                         </tr>
                         <tr>
-                            <td>🥈 白银会员</td>
-                            <td>邀请1位好友</td>
-                            <td>50元优惠券</td>
-                            <td>￥50</td>
+                            <td>200+</td> <!-- 【修改位置11】存款金额2 -->
+                            <td>8</td> <!-- 【修改位置12】彩金2 -->
                         </tr>
                         <tr>
-                            <td>🥉 青铜会员</td>
-                            <td>完成首次购买</td>
-                            <td>20元红包</td>
-                            <td>￥20</td>
+                            <td>500+</td> <!-- 【修改位置13】存款金额3 -->
+                            <td>18</td> <!-- 【修改位置14】彩金3 -->
+                        </tr>
+                        <tr>
+                            <td>1000+</td> <!-- 【修改位置15】存款金额4 -->
+                            <td>28</td> <!-- 【修改位置16】彩金4 -->
+                        </tr>
+                        <tr>
+                            <td>5000+</td> <!-- 【修改位置17】存款金额5 -->
+                            <td>58</td> <!-- 【修改位置18】彩金5 -->
+                        </tr>
+                        <tr>
+                            <td>1w+</td> <!-- 【修改位置19】存款金额6 -->
+                            <td>88</td> <!-- 【修改位置20】彩金6 -->
+                        </tr>
+                        <tr>
+                            <td>3w+</td> <!-- 【修改位置21】存款金额7 -->
+                            <td>188</td> <!-- 【修改位置22】彩金7 -->
+                        </tr>
+                        <tr>
+                            <td>8w+</td> <!-- 【修改位置23】存款金额8 -->
+                            <td>388</td> <!-- 【修改位置24】彩金8 -->
+                        </tr>
+                        <tr>
+                            <td>20w+</td> <!-- 【修改位置25】存款金额9 -->
+                            <td>1088</td> <!-- 【修改位置26】彩金9 -->
+                        </tr>
+                        <tr>
+                            <td>50w+</td> <!-- 【修改位置27】存款金额10 -->
+                            <td>3888</td> <!-- 【修改位置28】彩金10 -->
+                        </tr>
+                        <tr>
+                            <td>100w+</td> <!-- 【修改位置29】存款金额11 -->
+                            <td>8888</td> <!-- 【修改位置30】彩金11 -->
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
 
-        <!-- 活动规则说明 -->
+        <!-- 活动说明 -->
         <div class="rules-section">
-            <h3>📋 活动规则</h3>
-            <ul>
-                <li>本活动仅限新用户参与，每人限参与一次</li>
-                <li>奖励将在完成条件后3个工作日内发放到账</li>
-                <li>活动最终解释权归本公司所有</li>
-            </ul>
+            <p><strong>注：</strong>该活动不与其他存送活动共享，一天仅限三笔（PG娱乐城所有的转包入款方式皆可）。</p> <!-- 【修改位置31】活动说明1 -->
+            <p><strong>申请方式：</strong>联系24小时IPAI专属客服进行办理。</p> <!-- 【修改位置32】申请方式 -->
+            <p><strong>活动最终解释权归本公司所有。</strong></p> <!-- 【修改位置33】最终解释权 -->
         </div>
 
-        <!-- 功能介绍 -->
-        <div class="features-section">
-            <h3>✨ APP核心功能</h3>
-            <div class="features-grid">
-                <div class="feature-item">
-                    <h4>🚀 极速体验</h4>
-                    <p>毫秒级响应，流畅如丝般的用户体验</p>
-                </div>
-                <div class="feature-item">
-                    <h4>🔒 安全保障</h4>
-                    <p>银行级安全加密，保护您的隐私数据</p>
-                </div>
-                <div class="feature-item">
-                    <h4>🎯 精准推荐</h4>
-                    <p>AI智能算法，为您推荐最感兴趣的内容</p>
-                </div>
-            </div>
+        <!-- 扫码添加IPAI女神办理 -->
+        <div class="qr-section" style="text-align: center; margin: 30px 0;">
+            <h3>【扫码添加IPAI女神办理】</h3> <!-- 【修改位置34】扫码标题 -->
+            <p>谷歌浏览器搜索网址：<a href="http://myjpai.cn" target="_blank" style="color: #ff6b6b; text-decoration: none;">myjpai.cn</a> 下载</p> <!-- 【修改位置35】网址 -->
         </div>
 
-        <!-- 下载按钮 - 静默检测方案 -->
-        <div style="text-align: center;">
-            <button class="download-btn" onclick="tryOpenApp()" style="border: none; cursor: pointer;">
-                📱 立即使用APP
+        <!-- 立即领取按钮 -->
+        <div style="text-align: center; margin: 30px 0;">
+            <button class="download-btn" onclick="tryOpenApp()" style="border: none; cursor: pointer; background: linear-gradient(45deg, #ff6b6b, #ff8e8e); color: white; padding: 15px 40px; border-radius: 25px; font-size: 18px; font-weight: bold;">
+                立即领取 <!-- 【修改位置36】按钮文字 -->
             </button>
+        </div>
+
+        <!-- 底部提示 -->
+        <div style="text-align: center; margin-top: 20px;">
+            <p style="color: #999; font-size: 14px;">注意：该活动需要在存款后来进行游戏前申请！</p> <!-- 【修改位置37】底部提示 -->
         </div>
     </div>
 
