@@ -423,24 +423,13 @@
             document.addEventListener('focusin', onFocusChange);
             document.addEventListener('focusout', onFocusChange);
 
-            // 方法1: 使用window.location直接跳转（最兼容）
-            try {
-                window.location.href = appConfig.appScheme;
-            } catch (e) {
-                // 如果直接跳转失败，使用iframe方式
-                var iframe = document.createElement('iframe');
-                iframe.style.display = 'none';
-                iframe.src = appConfig.appScheme;
-                document.body.appendChild(iframe);
-                
-                setTimeout(function() {
-                    if (iframe && iframe.parentNode) {
-                        iframe.parentNode.removeChild(iframe);
-                    }
-                }, 1000);
-            }
+            // 使用iframe方式尝试打开APP（不会直接跳转页面）
+            var iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            iframe.src = appConfig.appScheme;
+            document.body.appendChild(iframe);
 
-            // 持续检测APP是否打开
+            // 快速检测APP是否打开
             var checkInterval = setInterval(function() {
                 checkCount++;
                 
@@ -449,21 +438,27 @@
                     appOpened = true;
                     clearInterval(checkInterval);
                     cleanup();
+                    // 移除iframe
+                    if (iframe && iframe.parentNode) {
+                        iframe.parentNode.removeChild(iframe);
+                    }
                     return;
                 }
                 
-                // 检查时间是否超过阈值
-                if (checkCount >= 15) { // 检查1.5秒 (15 * 100ms)
+                // 检查时间是否超过阈值 - 缩短到1秒
+                if (checkCount >= 10) { // 检查1秒 (10 * 100ms)
                     clearInterval(checkInterval);
+                    cleanup();
                     
-                    // 最后一次检查
-                    setTimeout(function() {
-                        if (!appOpened && !document.hidden && document.hasFocus()) {
-                            // 确认APP没有打开，跳转到网页版
-                            window.location.href = appConfig.fallbackUrl;
-                        }
-                        cleanup();
-                    }, 1000); // 再等1秒确认
+                    // 移除iframe
+                    if (iframe && iframe.parentNode) {
+                        iframe.parentNode.removeChild(iframe);
+                    }
+                    
+                    // APP没有打开，直接跳转到网页版
+                    if (!appOpened) {
+                        window.location.href = appConfig.fallbackUrl;
+                    }
                 }
             }, 100);
         }
