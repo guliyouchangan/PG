@@ -541,52 +541,64 @@
         </div>
     </div>
 
-    <script>
+        <script>
         // 【修改位置26】配置区域
         var appConfig = {
-            appScheme: 'jpaiapp://open?type=99',        // APP深链接
+            iosScheme: 'JpaiApp://open?type=99',        // iOS深链接
+            androidScheme: 'jpai://jpai.app/open?type=99', // Android深链接
             fallbackUrl: 'http://www.myjpai.cn/home',   // 备用网址
-            detectTimeout: 2500                          // 检测超时时间(毫秒)
+            detectTimeout: 3000                          // 检测超时时间(毫秒)
         };
 
-                function tryOpenApp() {
-            var appOpened = false;
-            var startTime = Date.now();
+        var timer; // 定义全局timer变量
 
-            // 检测页面可见性变化（APP打开时页面会被隐藏）
-            function onVisibilityChange() {
-                if (document.hidden) {
-                    appOpened = true;
-                }
-            }
-
-            // 检测页面失去焦点
-            function onPageBlur() {
-                appOpened = true;
-            }
-
-            // 添加监听器
-            document.addEventListener('visibilitychange', onVisibilityChange);
-            window.addEventListener('blur', onPageBlur);
-            window.addEventListener('pagehide', onPageBlur);
-
-            // 直接使用window.location跳转深链接
-            window.location.href = appConfig.appScheme;
-
-            // 设置超时检测
-            setTimeout(function() {
-                // 清理监听器
-                document.removeEventListener('visibilitychange', onVisibilityChange);
-                window.removeEventListener('blur', onPageBlur);
-                window.removeEventListener('pagehide', onPageBlur);
+        function tryOpenApp() {
+            var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            var queryString = window.location.search.substring(1);
+            var pair = queryString.split("value=");
+            var content = pair[1] || ''; // 获取URL参数中的content值
+            
+            // 检测iOS设备
+            if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                // 设置3秒后跳转到备用网址
+                timer = setTimeout(function () {
+                    window.location = appConfig.fallbackUrl;
+                }, appConfig.detectTimeout);
                 
-                // 如果APP没有打开（页面没有被隐藏），跳转到网页版
-                if (!appOpened) {
-                    window.location.href = appConfig.fallbackUrl;
-                }
-            }, 1500); // 1.5秒超时
+                // 尝试打开APP
+                window.location.href = `${appConfig.iosScheme}&content=${content}`;
+            }
+            // 检测Android设备
+            else if (/android/i.test(userAgent)) {
+                // 设置3秒后跳转到备用网址
+                timer = setTimeout(function () {
+                    window.location = appConfig.fallbackUrl;
+                }, appConfig.detectTimeout);
+                
+                // 尝试打开APP
+                window.location.href = `${appConfig.androidScheme}&content=${content}`;
+            }
+            // 其他设备直接跳转到网页版
+            else {
+                window.location.href = appConfig.fallbackUrl;
+            }
         }
-     </script>
+
+        // 监听页面可见性变化，如果APP打开了，页面会被隐藏
+        function watchVisibility() {
+            window.addEventListener('visibilitychange', function() {
+                if (document.hidden) {
+                    // 页面被隐藏，说明APP可能已经打开，清除定时器
+                    if (timer) {
+                        clearTimeout(timer);
+                    }
+                }
+            });
+        }
+
+        // 页面加载时启动监听
+        watchVisibility();
+    </script>
 
  </body>
 </html> 
